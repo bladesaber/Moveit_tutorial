@@ -1,0 +1,9 @@
+<launch>
+
+    <node pkg="demo" type="server_simple.py" name="server_simple" output="screen">
+    </node>
+
+    <node pkg="demo" type="server_client_simple.py" name="server_client_simple" output="screen">
+    </node>
+
+</launch>

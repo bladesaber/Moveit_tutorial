@@ -1,0 +1,10 @@
+<launch>
+
+    <node pkg="demo" type="pub_msg.py" name="pub_msg" output="screen">
+        <param name="demo_param" type="int" value="666"/>
+    </node>
+
+    <node pkg="demo" type="sub_msg.py" name="sub_msg" output="screen">
+    </node>
+
+</launch>
