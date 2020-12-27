@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <robot name="ur3" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <link name="world"/>
     <joint name="fix_joint" type="fixed">

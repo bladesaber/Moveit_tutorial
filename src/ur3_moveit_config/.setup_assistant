@@ -6,6 +6,6 @@ moveit_setup_assistant_config:
   SRDF:
     relative_path: config/ur3.srdf
   CONFIG:
-    author_name: bladesaber
-    author_email: 2510294705@qq.com
-    generated_timestamp: 1609069928
+    author_name: koke
+    author_email: kokeliang@gmail.com
+    generated_timestamp: 1609016386

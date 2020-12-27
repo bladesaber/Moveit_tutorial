@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!--launch Gazebo-->
+  <include file="$(find ur3_gazebo)/launch/ur3_gazebo_world.launch"/>
+  
+  <!--ros_control arm launch file-->
+  <include file="$(find ur3_gazebo)/launch/ur3_gazebo_states.launch"/>
+
+  <!--ros_control trajectory control dof arm launch file-->
+  <include file="$(find ur3_gazebo)/launch/ur3_trajectory_controller.launch"/>
+
+  <!--moveit launch file-->
+  <include file="$(find ur3_moveit_config)launch/moveit_planning_execution.launch"/>
+
+</launch>
