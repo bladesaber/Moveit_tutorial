@@ -5,3 +5,4 @@ sudo apt-get install ros-melodic-moveit-resources
 sudo apt-get install ros-melodic-gazebo-ros*
 sudo apt-get install ros-melodic-joint-trajectory*
 sudo apt install ros-melodic-joint-*
+sudo apt-get install ros-melodic-moveit-visual-tools
