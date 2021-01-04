@@ -8,7 +8,7 @@ import sys
 
 if __name__ == '__main__':
     moveit_commander.roscpp_initialize(sys.argv)
-    rospy.init_node('moveit_fk_demo', anonymous=True)
+    rospy.init_node('moveit_ik_demo', anonymous=True)
 
     arm = moveit_commander.MoveGroupCommander('manipulator')
     end_effector_link = arm.get_end_effector_link()
