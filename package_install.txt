@@ -1,0 +1,11 @@
+track-ik 求解器
+sudo apt-get install ros-melodic-trac-ik-kinematics-plugin
+ros-melodic-trac-ik
+# 意义不明，但必须更新moveit
+sudo apt-get install ros-melodic-moveit-*
+
+rosed "$ROBOT_NAME"_moveit_config/config/kinematics.yaml
+	kinematics_solver: trac_ik_kinematics_plugin/TRAC_IKKinematicsPlugin
+
+camera calibration tool
+sudo apt-get install ros-melodic-camera-calibration

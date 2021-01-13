@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(probot_demo)
+project(probot_vision)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
@@ -8,17 +8,21 @@ add_compile_options(-std=c++11)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  rospy
-  moveit_msgs
-  moveit_ros_perception
+  cv_bridge
+  image_transport
+  moveit_core
+  moveit_ros_planning
   moveit_ros_planning_interface
-  trajectory_msgs
+  moveit_visual_tools
+  roscpp
+  sensor_msgs
+  std_msgs
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(OpenCV REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -107,8 +111,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES probot_demo
-   CATKIN_DEPENDS roscpp rospy moveit_core moveit_ros_planning_interface
+#  LIBRARIES probot_vision
+#  CATKIN_DEPENDS roscpp
 #  DEPENDS system_lib
 )
 
@@ -119,13 +123,13 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/probot_demo.cpp
+#   src/${PROJECT_NAME}/probot_vision.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -136,7 +140,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/probot_demo_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/probot_vision_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -153,29 +157,12 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
-add_executable(moveit_random_demo src/moveit_random_demo.cpp)
-target_link_libraries(moveit_random_demo ${catkin_LIBRARIES})
+add_executable(image_converter src/image_converter.cpp)
+target_link_libraries(image_converter ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
-add_executable(moveit_fk_demo src/moveit_fk_demo.cpp)
-target_link_libraries(moveit_fk_demo ${catkin_LIBRARIES})
 
-add_executable(moveit_ik_demo src/moveit_ik_demo.cpp)
-target_link_libraries(moveit_ik_demo ${catkin_LIBRARIES})
-
-add_executable(moveit_cartesian_demo src/moveit_cartesian_demo.cpp)
-target_link_libraries(moveit_cartesian_demo ${catkin_LIBRARIES})
-
-add_executable(moveit_collision_demo src/moveit_collision_demo.cpp)
-target_link_libraries(moveit_collision_demo ${catkin_LIBRARIES})
-
-add_executable(moveit_circle_demo src/moveit_circle_demo.cpp)
-target_link_libraries(moveit_circle_demo ${catkin_LIBRARIES})
-
-add_executable(moveit_revise_trajectory_demo src/moveit_revise_trajectory_demo.cpp)
-target_link_libraries(moveit_revise_trajectory_demo ${catkin_LIBRARIES})
-
-add_executable(moveit_continue_trajectory_demo src/moveit_continue_trajectory_demo.cpp)
-target_link_libraries(moveit_continue_trajectory_demo ${catkin_LIBRARIES})
+add_executable(visonManager src/vision_manager.cpp)
+target_link_libraries(visonManager ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
 #############
 ## Install ##
@@ -211,38 +198,13 @@ target_link_libraries(moveit_continue_trajectory_demo ${catkin_LIBRARIES})
 #   # myfile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
-install(PROGRAMS 
-   scripts/moveit_fk_demo.py
-   scripts/moveit_ik_demo.py
-   scripts/moveit_cartesian_demo.py
-   scripts/moveit_attached_object_demo.py
-   scripts/moveit_circle_demo.py
-   scripts/moveit_revise_trejectory_demo.py
-   scripts/probot_demo.py
-   scripts/test_move.py
-   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-
-install(TARGETS
-   moveit_random_demo 
-   moveit_fk_demo 
-   moveit_ik_demo 
-   moveit_cartesian_demo
-   moveit_collision_demo 
-   moveit_circle_demo 
-   moveit_revise_trajectory_demo 
-   moveit_continue_trajectory_demo
-   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
 
 #############
 ## Testing ##
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_probot_demo.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_probot_vision.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
